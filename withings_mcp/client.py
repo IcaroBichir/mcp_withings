@@ -80,9 +80,13 @@ class WithingsClient:
         )
         resp.raise_for_status()
         data = resp.json()
-        if data.get("status") != 0:
+        status = data.get("status")
+        if status == 2554:
+            # "Not implemented" — endpoint unsupported for this device class (e.g. scale-only)
+            return {}
+        if status != 0:
             raise RuntimeError(
-                f"Withings API error {data.get('status')}: {data.get('error', data)}"
+                f"Withings API error {status}: {data.get('error', data)}"
             )
         return data.get("body", {})
 
