@@ -145,7 +145,7 @@ def refresh_if_needed() -> dict:
         return tokens
 
     resp = httpx.post(_TOKEN_URL, data={
-        "action": "refreshtoken",
+        "action": "requesttoken",
         "grant_type": "refresh_token",
         "client_id": tokens["client_id"],
         "client_secret": tokens["client_secret"],
